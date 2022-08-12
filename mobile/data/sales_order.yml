@@ -1,0 +1,21 @@
+sales_order_default:
+#  customer_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  customer_name: Kodok
+  product_details:
+    product_name: Sales
+    product_buy_price: 50000
+    product_sell_price: 100000
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+
+sales_order_approval:
+  customer_name: My Customer
+  product_details:
+    product_name: Pulpen
+    product_buy_price: 1500000
+    product_sell_price: 1000000
+    unit_price: 1500000
+  product_price: 1500000
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30

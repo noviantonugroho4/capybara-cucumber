@@ -1,0 +1,109 @@
+require 'cucumber'
+require 'cucumber/rake/task'
+require 'parallel_tests'
+require 'report_builder'
+require 'byebug'
+require 'dotenv'
+
+namespace :mobile do
+  Dotenv.load
+  def run_cucumber(cucumber_options, parallel = true)
+    Cucumber::Rake::Task.new do |t|
+      t.cucumber_opts = cucumber_options
+      t.profile = parallel ? 'rake_run' : 'default'
+    end
+    Rake::Task[:cucumber].invoke
+  end
+
+  task :device1 do |_t|
+    puts '=====:: Set device 1 ::===== '
+    ENV['TEST_ENV_NUMBER'] = '_one'
+    run_cucumber("--tags '#{ENV['tags']}'")
+  end
+
+  task :device2 do |_t|
+    puts '=====:: Set device 2 ::===== '
+    ENV['TEST_ENV_NUMBER'] = '_two'
+    run_cucumber("--tags '#{ENV['TAGS_2']}'")
+  end
+
+  task :device3 do |_t|
+    puts '=====:: Set device 3 ::===== '
+    ENV['TEST_ENV_NUMBER'] = '_three'
+    run_cucumber("--tags '#{ENV['TAGS_3']}'")
+  end
+
+  desc 'run single AVD'
+  task run_single: ['mobile:clear_report', 'mobile:init_report'] do
+    run_cucumber("--tags '#{ENV['tags']}'", false)
+  rescue Exception => e
+    puts e
+  ensure
+    Rake::Task['mobile:rerun'].execute
+    Rake::Task['mobile:merge_report'].execute
+  end
+
+  desc 'run parallel'
+  task run_parallel: ['mobile:clear_report', 'mobile:init_report'] do
+    Parallel.each(['mobile:device1', 'mobile:device2', 'mobile:device3'], in_processes: 3) do |task|
+      Rake::Task[task].invoke
+      raise Parallel::Break
+    rescue Exception => e
+      puts e
+    ensure
+      Rake::Task['mobile:rerun'].execute
+      Rake::Task['mobile:merge_report'].execute
+    end
+  end
+
+  task :rerun do
+    @temp_status = 1
+    rerun_file = "report/#{ENV['REPORT_PATH']}/rerun#{ENV['TEST_ENV_NUMBER']}.txt"
+    unless File.size(rerun_file).zero?
+      puts "=====:: will rerun file #{rerun_file}"
+      FileUtils.cp_r rerun_file, './rerun.txt'
+      opening_file = open './rerun.txt'
+      content_rerun = opening_file.read
+      puts "=====:: list of failed scenarios #{content_rerun}"
+      opening_file.close
+      ENV['file_rerun'] = rerun_file.split('/').last.tr('.txt', '')
+
+      status_rerun = system 'bundle exec cucumber @rerun.txt --profile rerun'
+      @temp_status -= 1 unless status_rerun
+    end
+    # see :merge_report for exit @status
+    puts "Final status #{@temp_status} : #{@temp_status.positive?}"
+    @status = @temp_status.positive? ? true : false
+  end
+
+  task :clear_report do
+    puts '=====:: Delete report directory '
+    report_root = File.absolute_path('./report')
+    FileUtils.rm_rf(report_root, secure: true)
+    FileUtils.mkdir_p report_root
+  end
+
+  task :init_report do
+    report_root = File.absolute_path('./report')
+    ENV['REPORT_PATH'] = Time.now.strftime('%F_%H-%M-%S')
+    puts "=====:: about to create report #{ENV['REPORT_PATH']} "
+    FileUtils.mkdir_p "#{report_root}/#{ENV['REPORT_PATH']}"
+  end
+
+  task :merge_report do
+    # Merging all report found in the directory
+    output_report = 'report/output/feature_report'
+    puts "=====:: Merging report #{output_report}"
+    FileUtils.mkdir_p 'report/output'
+    options = {
+      input_path: "report/#{ENV['REPORT_PATH']}",
+      report_path: output_report,
+      report_types: %w[retry html json],
+      report_title: 'Jurnal Mobile Automation Report',
+      color: 'pink',
+      additional_info: { platform: ENV['PLATFORM'] }
+    }
+    ReportBuilder.build_report options
+    puts "After rerun @status in merging report is #{@status}"
+  end
+end

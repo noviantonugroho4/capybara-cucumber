@@ -1,0 +1,62 @@
+customer_without_transaction_default:
+  name: ~merge(separator=' ', [first_name, last_name, number(digits=5)])
+  email: ~email_address
+  mobile: 081234567890
+  phone: 080989999
+  term: Cash on Delivery
+  billing_address: MidPlaza 2 Lantai 4
+  shipping_address: Stadion Gelora Bung Karno
+  account_receivable: Unbilled Accounts Receivable
+  account_payable: Unbilled Accounts Payable
+
+vendor_without_transaction_default:
+  name: ~merge(separator=' ', [first_name, last_name, number(digits=5)])
+  email: ~email_address
+  mobile: 081287777952
+  phone: 02150863887
+  term: Net 60
+  billing_address: TPU Karet Bivak
+  account_receivable: Doubtful Receivable
+  account_payable: Trade Payable
+
+customer_edit_without_transaction_default:
+  name: ~merge(separator=' ', [first_name, last_name, number(digits=5)])
+  email: ~email_address
+  mobile: 081234567890
+  phone: 080989999
+  term: Cash on Delivery
+  billing_address: Jl Letjen Haryono MT Kav 17 Wisma Pede
+  shipping_address: Jl Rawa Girang 4 Kawasan
+  account_receivable: Account Receivable
+  account_payable: Trade Payable
+
+vendor_edit_without_transaction:
+  name: ~merge(separator=' ', [first_name, last_name, number(digits=5)])
+  email: ~email_address
+  mobile: 081280000000
+  phone: 02150863000
+  term: Net 60
+  billing_address: EDITED TPU
+  account_receivable: Doubtful Receivable
+  account_payable: Trade Payable
+
+failed_create_customer:
+  name: 
+  email: 
+  mobile: 081234567890
+  phone: 080989999
+  term: Cash on Delivery
+  billing_address: Jl Letjen Haryono MT Kav 17 Wisma Pede
+  shipping_address: Jl Rawa Girang 4 Kawasan
+  account_receivable: Account Receivable
+  account_payable: Trade Payable
+
+failed_create_vendor:
+  name: 
+  email:
+  mobile: 081280000000
+  phone: 02150863000
+  term: Net 60
+  billing_address: create vendor failed
+  account_receivable: Doubtful Receivable
+  account_payable: Trade Payable  

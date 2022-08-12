@@ -1,0 +1,8 @@
+<%
+    common_requires = "--require app --require step_definitions --require screens"
+%>
+
+default: <%= common_requires %> --format pretty --format html --out report/<%= ENV['REPORT_PATH']%>/features_report.html --format json --out=report/<%= ENV['REPORT_PATH']%>/cucumber.json -f rerun -o report/<%= ENV['REPORT_PATH']%>/rerun.txt
+rake_run: <%= common_requires %> --format pretty --format html --out report/<%= ENV['REPORT_PATH']%>/features_report<%= ENV['TEST_ENV_NUMBER']%>.html --format json --out=report/<%= ENV['REPORT_PATH']%>/cucumber<%= ENV['TEST_ENV_NUMBER']%>.json -f rerun -o report/<%= ENV['REPORT_PATH']%>/rerun<%= ENV['TEST_ENV_NUMBER']%>.txt
+# rerun profile used when system run all failed scenario, check on rakefile
+rerun: <%= common_requires %> --format pretty --format html --out report/<%= ENV['REPORT_PATH']%>/features_report_rerun.html --format json --out=report/<%= ENV['REPORT_PATH']%>/cucumber_rerun.json

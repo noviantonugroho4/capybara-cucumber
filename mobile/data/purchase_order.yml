@@ -1,0 +1,29 @@
+purchase_order_default:
+  vendor_name: My Vendor
+  product_details:
+    product_name: Sales
+    product_buy_price: 50000
+    product_sell_price: 100000
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+
+purchase_order_new_vendor_and_product:
+  vendor_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  product_details:
+    product_name: ~merge(separator=' ', [full_name, number(digits=5)])
+    product_buy_price: 50000
+    product_sell_price: 100000
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+
+purchase_order_before_edit:
+  vendor_name: My Vendor
+  product_details:
+    product_name: Sales
+    product_buy_price: 50000
+    product_sell_price: 100000
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 15

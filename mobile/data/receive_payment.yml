@@ -1,0 +1,7 @@
+receive_payment_default:
+  payment_details:
+    payment_amount: 50000
+    payment_date: ~today(format = '%d/%m/%Y')
+    payment_method: Cash
+  memo: receive payment created from icebox mobile
+  tags: icebox_mobile

@@ -1,0 +1,49 @@
+sales_quote_default:
+  customer_name: My Customer
+  product_details:
+    product_name: Sales
+    tax: PPN
+    unit_price: 50000
+  discount_details:
+    discount_using: Rp
+    discount_amount: 15000
+  shipping_details:
+    shipping_date: ~tomorrow(format = '%d/%m/%Y')
+    shipping_fee: 10000
+    shipping_via: JNE
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+  message: Sales quote created from icebox mobile
+
+sales_quote_new_customer_and_product:
+  transaction_no: ~merge(separator='-', ['SQ', number(digits=5)])
+  customer_name: ~merge(separator=' ', ['Customer', number(digits=5)])
+  product_details:
+    product_name: ~merge(separator=' ', [full_name, number(digits=5)])
+    product_code: ~characters(character_count=10)
+    product_unit: Pcs
+    product_description: ~catch_phrase
+    product_sell_price: 100000
+  transaction_date: ~today(format = '%d/%m/%Y')
+  expiry_date: ~15.days_from_today(format = '%d/%m/%Y')
+  term: Custom
+  memo: Sales quote created from icebox mobile
+
+sales_quote_approval:
+  customer_name: My Customer
+  product_details:
+    product_name: Pulpen
+    tax: PPN
+    unit_price: 1500000
+  discount_details:
+    discount_using: Rp
+    discount_amount: 15000
+  shipping_details:
+    shipping_date: ~tomorrow(format = '%d/%m/%Y')
+    shipping_fee: 10000
+    shipping_via: JNE
+  product_price: ~number(digits=5)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+  message: Sales quote created from icebox mobile

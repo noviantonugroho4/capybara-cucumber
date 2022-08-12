@@ -1,0 +1,37 @@
+default: &default
+  noReset: true
+  fullReset: false
+  dontStopAppOnReset: true
+  newCommandTimeout: '3600'
+  uiautomator2ServerLaunchTimeout: '120000'
+  autoGrantPermissions: true
+  autoAcceptAlerts: false
+  isHeadless: false
+  language: 'en'
+  locale: 'en'
+
+android:
+  <<: *default
+  deviceName: <%= ENV['ANDROID_DEVICE_NAME'] %>
+  automationName: 'UiAutomator2'
+  platformName: 'Android'
+  platformVersion: "<%= ENV['ANDROID_PLATFORM_VERSION'] %>"
+  app: <%= ENV['CI'] == 'true' ? 'app/installer/jurnal_android_latest_build.apk' : 'app/installer/android_v1.30.31.apk' %>
+  appPackage: <%= ENV['ENVIRONMENT'] == 'production' ? 'com.android.chrome' : 'com.android.chrome'  %>
+  appActivity: 'com.google.android.apps.chrome.Main'
+  systemPort: '8201'
+  avd: <%= ENV['ANDROID_DEVICE_NAME'] %>
+  skipUnlock: true
+
+ios:
+  <<: *default
+  deviceName: <%= ENV['IOS_DEVICE_NAME'] %>
+  automationName: 'XCUITest'
+  platformName: 'iOS'
+  platformVersion: "<%= ENV['IOS_PLATFORM_VERSION'] %>"
+  app: <%= ENV['CI'] == 'true' ? 'jurnal_ios_latest_build.zip' : 'app/installer/ios_v1.19.18.zip' %>
+  udid: <%= ENV['IOS_UDID'] %>
+  bundleId: <%= ENV['ENVIRONMENT'] == 'production' ? 'id.jurnal.mobile' : 'id.jurnal.mobile.dev'  %>
+  wdaLocalPort: '8100'
+  useNewWDA: false
+  connectHardwareKeyboard: true

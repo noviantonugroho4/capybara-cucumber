@@ -1,0 +1,7 @@
+send_payment_default:
+  payment_details:
+    payment_amount: 20000
+    payment_date: ~tomorrow(format = '%d/%m/%Y')
+    payment_method: Cash
+  memo: send payment created from icebox mobile
+  tags: icebox_mobile

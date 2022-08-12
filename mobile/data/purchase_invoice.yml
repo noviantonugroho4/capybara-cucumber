@@ -1,0 +1,60 @@
+purchase_invoice_default:
+  vendor_name: My Vendor
+  product_details:
+    product_name: Sales
+    unit_price: ~randomize(50000..100000)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+
+purchase_invoice_new_vendor_and_product:
+  vendor_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  product_details:
+    product_name: ~merge(separator=' ', [full_name, number(digits=5)])
+    product_buy_price: 50000
+    product_sell_price: 100000
+  discount_details:
+    discount_using: Rp
+    discount_amount: 15000
+  transaction_date: ~today(format = '%d/%m/%Y')
+  term: Net 30
+
+purchase_invoice_edit_default:
+  transaction_no: ~merge(separator='-', ['PI', number(digits=10)])
+  vendor_name: My Vendor
+  product_details:
+    product_name: Sales
+    unit_price: ~randomize(50000..100000)
+  transaction_date: ~today(format = '%d/%m/%Y')
+  discount_details: 'false'
+  shipping_details:
+    shipping_date: ~tomorrow(format = '%d/%m/%Y')
+    shipping_fee: 10000
+    shipping_via: JNE
+  tags: 'icebox_mobile'
+
+purchase_invoice_edit_new_vendor_and_product:
+  vendor_name: ~merge(separator=' ', ['Vendor', full_name, number(digits=5)])
+  product_details:
+    product_name: ~merge(separator=' ', ['Product', full_name, number(digits=5)])
+    product_buy_price: 50000
+    product_sell_price: 100000
+  transaction_date: ~yesterday(format = '%d/%m/%Y')
+  due_date: ~14.days_from_today(format = '%d/%m/%Y')
+  term: Custom
+  message: Purchase invoice edited from icebox mobile
+  memo: Purchase invoice edited from icebox mobile
+
+purchase_invoice_with_deposit:
+  vendor_name: My Vendor
+  product_details:
+    product_name: Sales
+    unit_price: ~randomize(50000..100000)
+    # product_name: ~merge(separator=' ', ['Product', full_name, number(digits=5)])
+    # product_buy_price: 50000
+    # product_sell_price: 100000
+  deposit:
+    deposit_amount: ~randomize(10000..20000)
+
+purchase_invoice_edit_deposit:
+  deposit:
+    deposit_amount: ~randomize(30000..40000)

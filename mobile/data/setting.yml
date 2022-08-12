@@ -1,0 +1,40 @@
+company_details:
+  email: ~email_address
+  phone: 080989999
+  company_address: MidPlaza 2 Lantai 4
+  shipping_address: Stadion Gelora Bung Karno
+  fax: 080989999
+  website: www.my.jurnal.id
+  tax: 023917319
+  checkbox:
+    show_logo: 'true'
+    receive_report: 'true'
+
+security_no_pin: #user set pin on but cancel with clicking back
+  pin: false 
+
+security_pin_valid_match:
+  pin: true
+  pin_number: 0823
+  confim_pin_number: 0823
+  interval: '5 Minutes'
+
+security_pin_valid_not_match: #refere to valid_match
+  pin: true
+  pin_number: 1823
+  confim_pin_number: 1813
+
+setting_transaction:
+  sales:
+    term: Net 30
+    def_sales_msg: ~merge(separator=' ', ['sales', full_name, number(digits=5)])
+    def_delivery_slip_msg: ~merge(separator=' ', ['delivery', full_name, number(digits=5)])
+    cb:
+      ship_info: 'true'
+  purchase:
+    term: Net 30
+    def_po_msg: ~merge(separator=' ', ['po', full_name, number(digits=5)])
+    cb:
+      ship_info: 'true'
+
+

@@ -1,0 +1,91 @@
+expense_default:
+  beneficiary_name: My Contact
+  pay_later: false
+  transaction_date: ~today(format = '%d/%m/%Y')
+  pay_from_account: Cash
+  payment_method: Cash
+  expense_account: Wages
+  expense_amount: 5000000
+
+expense_with_new_vendor_and_paylater:
+  beneficiary_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  pay_later: true
+  transaction_date: ~today(format = '%d/%m/%Y')
+  due_date: ~30.days_from_today(format = '%d/%m/%Y')
+  term: Custom
+  payment_method: Cash
+  expense_account: Wages
+  expense_amount: 30000000
+  memo: 'Expense created from icebox mobile'
+  tags: 'icebox_mobile'
+
+expense_with_edited_vendor:
+  expense_number: ~merge(separator='-', ['EXP', number(digits=5)])
+  beneficiary_name: My Contact
+  transaction_date: ~today(format = '%d/%m/%Y')
+  pay_from_account: Cash
+  payment_method: Cash
+  expense_account: Wages
+  expense_amount: 30000000
+  edit_beneficiary_data: true
+  beneficiary_email: sdet.jurnal_mobile+6@notnotnot.com
+  beneficiary_address: Midplaza
+
+expense_empty_account:
+  beneficiary_name: My Contact
+  expense_account:
+
+expense_empty_beneficiary:
+  beneficiary_name:
+  expense_account: Wages
+  expense_amount: 30000000
+
+expense_empty_amount:
+  beneficiary_name: My Contact
+  expense_account: Wages
+  expense_amount:
+
+expense_zero_amount:
+  beneficiary_name: My Contact
+  expense_account: Wages
+  expense_amount: 0
+
+expense_edited:
+  beneficiary_name: My Contact
+  pay_later: false
+  transaction_date: ~today(format = '%d/%m/%Y')
+  pay_from_account: Cash
+  payment_method: Cash
+  expense_account: Wages
+  expense_amount: 600000 
+
+open_expense_detail:
+  expense_number: ~merge(separator='-', ['EXP', number(digits=5)])
+  beneficiary_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  pay_later: true
+  transaction_date: ~today(format = '%d/%m/%Y')
+  expense_account: Wages
+  expense_amount: ~randomize(10000..50000)
+
+open_expense_edited_to_paid:
+  pay_later: true
+  transaction_date: ~tomorrow(format = '%d/%m/%Y')
+  beneficiary_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  pay_from_account: Giro
+  payment_method: Credit Card
+  expense_account: Salaries
+  expense_amount: ~randomize(50000..60000)
+  memo: 'Expense created from automation testing'
+  tags: ~merge(separator='-', ['Tag', number(digits=5)])
+
+expense_detail_with_expenses_only:
+  expense_account: Wages
+  expense_amount: ~randomize(10000..50000)
+
+delete_expense:
+  expense_number: ~merge(separator='-', ['EXP', number(digits=5)])
+  beneficiary_name: ~merge(separator=' ', [full_name, number(digits=5)])
+  pay_later: true
+  transaction_date: ~today(format = '%d/%m/%Y')
+  expense_account: Wages
+  expense_amount: ~randomize(10000..50000)

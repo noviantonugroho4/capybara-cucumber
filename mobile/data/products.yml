@@ -1,0 +1,28 @@
+products_default: 
+  name: ~merge(separator=' ', ['Pd', full_name, number(digits=5)])
+  code: ~merge(separator='_', ['Code', number(digits=5)])
+  unit: Pcs
+  description: product description
+  inventory: inventory
+  buy_price: ~randomize(50000..100000)
+  sell_price: ~randomize(50000..100000)
+  sell_account: revenue
+  sell_tax: None
+  category: category1
+  stock_option: true
+  buy_option: true
+  sell_option: true
+
+products_updated: 
+  name: ~merge(separator=' ', ['Pd', full_name, number(digits=5)])
+  code: ~merge(separator='_', ['Code', number(digits=5)])
+  unit: Pcs
+  description: updating product description
+  category: ~merge(separator=' ', ['Category', number(digits=5)])
+  inventory: inventory
+  buy_price: ~randomize(50000..100000)
+  buy_account: Account Receivable
+  buy_tax: PPN
+  sell_price: ~randomize(50000..100000)
+  sell_account: Unbilled Accounts Receivable
+  sell_tax: None
