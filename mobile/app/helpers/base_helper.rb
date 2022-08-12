@@ -299,6 +299,19 @@ module BaseHelper
   ## GESTURE LIB ##
 
   ## APPIUM DRIVER LIB ##
+  def switch_context(action_type)
+    case action_type
+    when 'webview'
+      webview = $driver.available_contexts.last
+      p webview
+      $driver.set_context 'WEBVIEW'
+    when 'native'
+      native = $driver.available_contexts.first
+      p native
+      $driver.set_context 'NATIVE_APP'
+    end
+  end
+
   def open_app
     $driver.launch_app
   end

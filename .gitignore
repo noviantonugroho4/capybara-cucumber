@@ -1,0 +1,18 @@
+# Cucumber report
+# Ruby debugger history
+**/.env
+**/report/*
+.byebug_history
+.DS_Store
+report/
+rerun.txt
+web/.env
+api-testing/.env
+mobile/.env
+selenium.log
+.idea/
+jmeter.log
+appium_server.log
+mobile/app/installer/*.app/
+web/features/data/files/token.yaml
+Gemfile.lock

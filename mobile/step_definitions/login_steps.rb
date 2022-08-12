@@ -7,6 +7,10 @@ Given 'user login as {string}' do |credential|
     wait_long_for { $driver.app_state($capabilities['bundleId']).eql? :running_in_foreground }
   end
   # IF OUR REQUEST TO HIDE FEATURE POPUP HAS BEEN COMPLETED BY DEV TEAM, DELETE LINE 10-12
+  switch_context('native')
+  wait_short_for { @app.welcome_screen.btn_accept_and_continue.displayed? }
+  p "Welcome to Chrome"
+  
   wait_short_for(optional_element: true) { @app.dashboard_screen.has_popup_feedback? || @app.dashboard_screen.has_popup_new_feature? }
   @app.dashboard_screen.btn_close_feedback.click if @app.dashboard_screen.has_popup_feedback?
   @app.dashboard_screen.btn_close_new_feature.click while @app.dashboard_screen.has_popup_new_feature?

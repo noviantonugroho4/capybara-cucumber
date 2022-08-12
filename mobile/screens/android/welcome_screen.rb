@@ -4,5 +4,8 @@ module Android
     element :btn_sign_in, :id, 'btn_sign_in'
     element :btn_sign_up, :id, 'btn_sign_up'
     element :header_signin, :xpath, '//android.view.ViewGroup/android.widget.TextView'
+
+    #google chrome
+    element :btn_accept_and_continue, :id, 'com.android.chrome:id/terms_accept'
   end
 end
